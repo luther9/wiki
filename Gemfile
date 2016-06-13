@@ -10,6 +10,7 @@ group(:production) {
 
 group(:development) {
   gem 'sqlite3'
+  gem 'web-console', '~> 2.0'
 }
 
 gem 'sass-rails', '~> 5.0'
@@ -25,7 +26,6 @@ gem 'devise'
 
 group(:development, :test) {
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'rspec-rails'
   gem 'shoulda'
