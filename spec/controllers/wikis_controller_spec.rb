@@ -96,6 +96,25 @@ RSpec.describe WikisController, type: :controller do
     }
   end
 
+  describe("PUT update") {
+    let(:new_title) {RandomData.random_sentence}
+    let(:new_body) {RandomData.random_paragraph}
+    before {
+      put :update, id: my_wiki.id, wiki: {title: new_title, body: new_body}
+    }
+
+    it('updates wiki with expected attributes') {
+      updated_wiki = assigns :wiki
+      expect(updated_wiki.id).to eq my_wiki.id
+      expect(updated_wiki.title).to eq new_title
+      expect(updated_wiki.body).to eq new_body
+    }
+
+    it('redirects to the updated wiki') {
+      expect(response).to redirect_to my_wiki
+    }
+  }
+
   describe "GET #destroy" do
     it "returns http success" do
       get :destroy
