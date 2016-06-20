@@ -75,10 +75,25 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe "GET #edit" do
+    before {
+      get :edit, id: my_wiki.id
+    }
+
     it "returns http success" do
-      get :edit
       expect(response).to have_http_status(:success)
     end
+
+    it("renders the #edit view") {
+      expect(response).to render_template :edit
+    }
+
+    it('assigns wiki to be updated to @wiki') {
+      wiki_instance = assigns :wiki
+
+      expect(wiki_instance.id).to eq my_wiki.id
+      expect(wiki_instance.title).to eq my_wiki.title
+      expect(wiki_instance.body).to eq my_wiki.body
+    }
   end
 
   describe "GET #destroy" do

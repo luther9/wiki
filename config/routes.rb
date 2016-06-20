@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   get 'wikis' => 'wikis#index'
 
   resources :wikis
-  
-  get 'wikis/edit'
 
   get 'wikis/destroy'
 
