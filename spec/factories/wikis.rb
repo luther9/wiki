@@ -3,6 +3,6 @@ FactoryGirl.define do
     title "MyString"
     body "MyText"
     private false
-    user create :user
+    user {create :user}
   end
 end
