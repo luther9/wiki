@@ -21,17 +21,57 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe "GET #new" do
-    it "returns http success" do
+    before {
       get :new
+    }
+
+    it "returns http success" do
       expect(response).to have_http_status(:success)
     end
+
+    it("renders the #new view") {
+      expect(response).to render_template :new
+    }
+
+    it('instantiates @wiki') {
+      expect(assigns :wiki).not_to be_nil
+    }
   end
 
+  describe("POST create") {
+    it('increases the number of wikis by 1') {
+      expect {
+        post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+      }.to change(Wiki, :count).by 1
+    }
+
+    it('assigns the new wiki to @wiki') {
+      post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+      expect(assigns :wiki).to eq Wiki.last
+    }
+
+    it('redirects to the new wiki') {
+      post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+      expect(response).to redirect_to Wiki.last
+    }
+  }
+
   describe "GET #show" do
+    before {
+      get :show, id: my_wiki.id
+    }
+
     it "returns http success" do
-      get :show
       expect(response).to have_http_status(:success)
     end
+
+    it("renders the #show view") {
+      expect(response).to render_template :show
+    }
+
+    it('assigns my_wiki to @wiki') {
+      expect(assigns :wiki).to eq my_wiki
+    }
   end
 
   describe "GET #edit" do
