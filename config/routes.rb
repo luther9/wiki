@@ -3,8 +3,6 @@ Rails.application.routes.draw do
 
   resources :wikis
 
-  get 'wikis/destroy'
-
   devise_for :users, controllers: {sessions: 'users/sessions'}
   get 'welcome/index'
 
