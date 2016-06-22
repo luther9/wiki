@@ -7,5 +7,10 @@ RSpec.describe Wiki, type: :model do
     it("has title and body attributes") {
       expect(wiki).to have_attributes title: "MyString", body: "MyText"
     }
+
+    it('require a user') {
+      wiki.user_id = nil
+      expect(wiki.valid?).to be_falsey
+    }
   }
 end

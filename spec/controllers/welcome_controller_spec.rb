@@ -6,13 +6,6 @@ RSpec.describe WelcomeController, type: :controller do
       sign_in create :user
     }
 
-    describe "GET #index" do
-      it "returns http success" do
-        get :index
-        expect(response).to have_http_status(:success)
-      end
-    end
-
     describe "GET #about" do
       it "returns http success" do
         get :about
@@ -22,13 +15,6 @@ RSpec.describe WelcomeController, type: :controller do
   }
 
   context('nobody signed in') {
-    describe "GET #index" do
-      it "returns http redirect" do
-        get :index
-        expect(response).to have_http_status(302)
-      end
-    end
-
     describe "GET #about" do
       it "returns http redirect" do
         get :about

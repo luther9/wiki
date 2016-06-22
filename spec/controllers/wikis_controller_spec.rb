@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe WikisController, type: :controller do
   let(:my_wiki) {create :wiki}
+  let(:my_user) {create :user}
   before {
-    sign_in create :user
+    sign_in my_user
   }
 
   describe "GET #index" do
@@ -53,6 +54,17 @@ RSpec.describe WikisController, type: :controller do
     it('redirects to the new wiki') {
       post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
       expect(response).to redirect_to Wiki.last
+    }
+
+    it('creates a persistent wiki') {
+      title = RandomData.random_sentence
+      body = RandomData.random_paragraph
+      post :create, wiki: {title: title, body: body}
+      wiki = Wiki.last
+      expect(wiki.valid?).to eq true
+      expect(wiki.user).to eq my_user
+      expect(wiki.title).to eq title
+      expect(wiki.body).to eq body
     }
   }
 
