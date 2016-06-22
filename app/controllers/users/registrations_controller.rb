@@ -1,11 +1,26 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  # Dummy classes to satisfy Pundit.
+  class Registration
+  end
+
+  class RegistrationPolicy < ApplicationPolicy
+    def new?
+      true
+    end
+
+    def create?
+      true
+    end
+  end
+
 # before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    authorize Registration.new
+    super
+  end
 
   # POST /resource
   # def create

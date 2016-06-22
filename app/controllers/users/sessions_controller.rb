@@ -1,10 +1,25 @@
 class Users::SessionsController < Devise::SessionsController
+  # Dummy classes to satisfy Pundit.
+  class Session
+  end
+
+  class SessionPolicy < ApplicationPolicy
+    def new?
+      true
+    end
+
+    def create?
+      true
+    end
+  end
+
 # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  def new
+    authorize Session.new
+    super
+  end
 
   # POST /resource/sign_in
   # def create
