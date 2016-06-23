@@ -1,7 +1,7 @@
 FactoryGirl.define do
   pw = 'helloworld'
   factory :user do
-    name RandomData.random_name
+    name Faker::Name.name
     sequence(:email) { |n|
       "user#{n}@factory.com"
     }

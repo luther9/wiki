@@ -42,23 +42,23 @@ RSpec.describe WikisController, type: :controller do
   describe("POST create") {
     it('increases the number of wikis by 1') {
       expect {
-        post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+        post :create, wiki: {title: FakeWiki.title, body: FakeWiki.body}
       }.to change(Wiki, :count).by 1
     }
 
     it('assigns the new wiki to @wiki') {
-      post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+      post :create, wiki: {title: FakeWiki.title, body: FakeWiki.body}
       expect(assigns :wiki).to eq Wiki.last
     }
 
     it('redirects to the new wiki') {
-      post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+      post :create, wiki: {title: FakeWiki.title, body: FakeWiki.body}
       expect(response).to redirect_to Wiki.last
     }
 
     it('creates a persistent wiki') {
-      title = RandomData.random_sentence
-      body = RandomData.random_paragraph
+      title = FakeWiki.title
+      body = FakeWiki.body
       post :create, wiki: {title: title, body: body}
       wiki = Wiki.last
       expect(wiki.valid?).to eq true
@@ -109,8 +109,8 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe("PUT update") {
-    let(:new_title) {RandomData.random_sentence}
-    let(:new_body) {RandomData.random_paragraph}
+    let(:new_title) {FakeWiki.title}
+    let(:new_body) {FakeWiki.body}
     before {
       put :update, id: my_wiki.id, wiki: {title: new_title, body: new_body}
     }
