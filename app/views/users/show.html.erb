@@ -1,2 +1,10 @@
 <h1>Hello, <%= @user.email %>!</h1>
 <p>Your role is <b><%= @user.role %></b>.</p>
+<p>
+  <% case @user.role %>
+  <% when 'standard' %>
+    <%= link_to 'Upgrade to premium.', new_charge_path %>
+  <% when 'premium' %>
+    <%= link_to 'Downgrade to standard.', user_downgrade_path(@user), method: :put %>
+  <% end %>
+</p>

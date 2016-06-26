@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :wikis
 
   devise_for :users, controllers: {sessions: 'users/sessions'}
-  resources :users, only: [:show]
+  resources(:users, only: [:show]) {
+    put '/downgrade' => 'users#downgrade', as: :downgrade
+  }
 
   get 'welcome/index'
 
