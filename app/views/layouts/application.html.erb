@@ -12,6 +12,9 @@
     <ul class="nav nav-tabs">
       <li><%= link_to 'Home', welcome_index_path %></li>
       <li><%= link_to 'About', welcome_about_path %></li>
+      <% if current_user %>
+        <li><%= link_to 'Profile', user_path(current_user) %></li>
+      <% end %>
     </ul>
 
     <ul class="hmenu">
@@ -38,7 +41,7 @@
       <% end %>
     </div>
 
-  <%= yield %>
+    <%= yield %>
   </div>
 
 </body>
