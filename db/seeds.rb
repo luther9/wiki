@@ -5,6 +5,32 @@
     password: Faker::Internet.password
   )
 end
+
+member = User.create!(
+  name: 'Member User',
+  email: 'member@example.com',
+  password: 'a'
+)
+
+premium = User.create!(
+  name: 'Premium User',
+  email: 'premium@example.com',
+  password: 'a',
+  role: :premium
+)
+
+admin = User.create!(
+  name: 'Admin User',
+  email: 'admin@example.com',
+  password: 'a',
+  role: :admin
+)
+
+[member, premium, admin].each { |u|
+  u.skip_confirmation!
+  u.save!
+}
+
 users = User.all
 
 15.times {
@@ -15,14 +41,6 @@ users = User.all
     private: false
   )
 }
-
-member = User.create!(
-  name: 'Member User',
-  email: 'member@example.com',
-  password: 'a'
-)
-member.skip_confirmation!
-member.save!
 
 puts "#{User.count} users created"
 puts "#{Wiki.count} wikis created"
