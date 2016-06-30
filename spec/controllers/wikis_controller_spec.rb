@@ -73,6 +73,10 @@ RSpec.describe WikisController, type: :controller do
       get :show, id: my_wiki.id
     }
 
+    it('has a markdown instance variable') {
+      expect((assigns :markdown).class).to eq Redcarpet::Markdown
+    }
+
     it "returns http success" do
       expect(response).to have_http_status(:success)
     end
