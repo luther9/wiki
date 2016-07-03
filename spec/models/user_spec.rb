@@ -66,4 +66,19 @@ RSpec.describe User, type: :model do
       expect(my_user.admin?).to be_truthy
     }
   }
+
+  describe('#collaborator_for(wiki)') {
+    let(:my_wiki) {
+      create :wiki
+    }
+
+    it('returns nil if user is not a collaborator') {
+      expect(my_user.collaborator_for my_wiki).to be_nil
+    }
+
+    it('returns the collaborator object if it exists') {
+      collaborator = my_user.collaborators.where(wiki: my_wiki).create
+      expect(my_user.collaborator_for my_wiki).to eq collaborator
+    }
+  }
 end

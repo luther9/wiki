@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
 
   has_many :collaborators, dependent: :destroy
 
+  def collaborator_for wiki
+    collaborators.where(wiki_id: wiki.id).first
+  end
+
   private
 
   def init
