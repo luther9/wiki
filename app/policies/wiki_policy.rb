@@ -1,25 +1,44 @@
 class WikiPolicy < ApplicationPolicy
   def show?
-    super && is_visible
+    is_visible
   end
 
   def update?
-    super && is_visible
+    is_visible
   end
 
   def destroy?
-    super && is_visible
+    is_visible
   end
 
   class Scope < Scope
     def resolve
-      scope.visible_to user
+      wikis = []
+      if user.role == 'admin'
+        wikis = scope.all
+      elsif user.role == 'premium'
+        all_wikis = scope.all
+        all_wikis.each { |wiki|
+          if !wiki.private? || wiki.owner == user || wiki.collaborators.include?(user)
+            wikis << wiki
+          end
+        }
+      else
+        all_wikis = scope.all
+        all_wikis.each { |wiki|
+          if !wiki.private? || wiki.collaborators.include?(user)
+            wikis << wiki
+          end
+        }
+      end
+      wikis
     end
   end
 
   private
 
+  # Returns true if the user may edit the wiki.
   def is_visible
-    scope.visible_to(user).exists?
+    !scope.empty?
   end
 end
