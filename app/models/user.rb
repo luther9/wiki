@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   enum role: [:standard, :premium, :admin]
 
+  has_many :collaborators, dependent: :destroy
+
   private
 
   def init

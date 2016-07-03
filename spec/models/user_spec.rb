@@ -13,6 +13,10 @@ RSpec.describe User, type: :model do
 
   it {is_expected.to validate_presence_of :password}
 
+  it {
+    is_expected.to have_many :collaborators
+  }
+
   describe('POST create') {
     it('has all attributes') {
       expect(my_user).to have_attributes name: my_user.name, email: my_user.email, password: my_user.password, role: 'standard'

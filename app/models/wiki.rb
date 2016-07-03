@@ -3,6 +3,8 @@ class Wiki < ActiveRecord::Base
 
   validates :user, presence: true
 
+  has_many :collaborators, dependent: :destroy
+
   def self.visible_to user
     if user && (user.admin? || user.premium?)
       all
