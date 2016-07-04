@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   root 'wikis#index'
 
   resources :charges, only: [:new, :create]
+
+  resources :collaborators, only: [:create, :destroy]
 end
