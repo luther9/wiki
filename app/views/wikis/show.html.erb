@@ -12,9 +12,9 @@
         </td>
         <td>
           <% if collaborator = u.collaborator_for(@wiki) %>
-            <%= link_to 'Remove collaborator', collaborator_path(collaborator), class: 'btn', method: :delete %>
+            <%= link_to 'Remove collaborator', collaborator_path(collaborator.id), class: 'btn', method: :delete %>
           <% else %>
-	    <%= link_to 'Add collaborator', collaborators_path, class: 'btn', method: :post %>
+	    <%= link_to 'Add collaborator', collaborators_path(user: current_user, wiki: @wiki), class: 'btn', method: :post %>
           <% end %>
         </td>
       </tr>
