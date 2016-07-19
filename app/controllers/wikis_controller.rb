@@ -25,18 +25,18 @@ class WikisController < ApplicationController
   end
 
   def show
-    @wiki = Wiki.find params[:id]
+    @wiki = Wiki.friendly.find params[:id]
     authorize @wiki
     @users = User.all
   end
 
   def edit
-    @wiki = Wiki.find params[:id]
+    @wiki = Wiki.friendly.find params[:id]
     authorize @wiki
   end
 
   def update
-    @wiki = Wiki.find params[:id]
+    @wiki = Wiki.friendly.find params[:id]
     authorize @wiki
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
@@ -51,7 +51,7 @@ class WikisController < ApplicationController
   end
 
   def destroy
-    @wiki = Wiki.find params[:id]
+    @wiki = Wiki.friendly.find params[:id]
     authorize @wiki
 
     if @wiki.destroy

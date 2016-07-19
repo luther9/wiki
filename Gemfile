@@ -26,6 +26,8 @@ gem 'devise'
 gem 'pundit'
 gem 'stripe'
 gem 'redcarpet'
+gem 'haml-rails', '~> 0.9.0'
+gem 'friendly_id', '~> 5.1.0'
 
 group(:development, :test) {
   gem 'byebug'
